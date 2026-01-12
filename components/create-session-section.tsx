@@ -60,14 +60,38 @@ export function CreateSessionSection() {
 
   const handleGenerate = async () => {
     setIsGenerating(true)
-    // Simulate API call - in real implementation, this would call your LLM API
-    await new Promise((resolve) => setTimeout(resolve, 3000))
-    setGeneratedSession({
-      title: `${formData.sessionType === "pre-game" ? "Pre-Game" : formData.sessionType} Visualization for ${formData.sport}`,
-      duration: `${formData.duration[0]} min`,
-      audioUrl: "/sample-meditation.mp3", // Placeholder
-    })
-    setIsGenerating(false)
+    try {
+      const response = await fetch("/api/generate-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          sport: formData.sport,
+          sessionType: formData.sessionType,
+          scenario: formData.scenario,
+          voiceStyle: formData.voiceStyle,
+          duration: formData.duration[0],
+        }),
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.error || "Failed to generate session")
+      }
+
+      const data = await response.json()
+      setGeneratedSession({
+        title: data.title,
+        duration: data.duration,
+        audioUrl: data.audioUrl,
+      })
+    } catch (error) {
+      console.error("Error generating session:", error)
+      alert(error instanceof Error ? error.message : "Failed to generate session. Please try again.")
+    } finally {
+      setIsGenerating(false)
+    }
   }
 
   return (
@@ -211,7 +235,11 @@ export function CreateSessionSection() {
             </CardHeader>
             <CardContent>
               {generatedSession ? (
-                <AudioPlayer title={generatedSession.title} duration={generatedSession.duration} />
+                <AudioPlayer 
+                  title={generatedSession.title} 
+                  duration={generatedSession.duration}
+                  audioUrl={generatedSession.audioUrl}
+                />
               ) : (
                 <div className="flex flex-col items-center justify-center h-80 text-center">
                   <div className="w-20 h-20 rounded-full bg-secondary flex items-center justify-center mb-6">

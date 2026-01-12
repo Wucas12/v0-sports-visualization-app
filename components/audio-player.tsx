@@ -8,46 +8,62 @@ import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Download, Heart, 
 interface AudioPlayerProps {
   title: string
   duration: string
+  audioUrl?: string
 }
 
-export function AudioPlayer({ title, duration }: AudioPlayerProps) {
+export function AudioPlayer({ title, duration, audioUrl }: AudioPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [totalDuration, setTotalDuration] = useState(600) // 10 minutes in seconds
   const [volume, setVolume] = useState([80])
   const [isMuted, setIsMuted] = useState(false)
   const [isFavorite, setIsFavorite] = useState(false)
-  const intervalRef = useRef<NodeJS.Timeout | null>(null)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
 
-  // Parse duration string to seconds
+  // Initialize audio element
   useEffect(() => {
-    const minutes = Number.parseInt(duration.replace(" min", ""))
-    setTotalDuration(minutes * 60)
-  }, [duration])
-
-  // Simulate playback progress
-  useEffect(() => {
-    if (isPlaying) {
-      intervalRef.current = setInterval(() => {
-        setCurrentTime((prev) => {
-          if (prev >= totalDuration) {
-            setIsPlaying(false)
-            return 0
-          }
-          return prev + 1
-        })
-      }, 1000)
-    } else {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current)
-      }
+    if (audioUrl) {
+      audioRef.current = new Audio(audioUrl)
+      audioRef.current.addEventListener("loadedmetadata", () => {
+        setTotalDuration(Math.floor(audioRef.current?.duration || 600))
+      })
+      audioRef.current.addEventListener("timeupdate", () => {
+        setCurrentTime(Math.floor(audioRef.current?.currentTime || 0))
+      })
+      audioRef.current.addEventListener("ended", () => {
+        setIsPlaying(false)
+        setCurrentTime(0)
+      })
     }
+
     return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current)
+      if (audioRef.current) {
+        audioRef.current.pause()
+        audioRef.current = null
       }
     }
-  }, [isPlaying, totalDuration])
+  }, [audioUrl])
+
+  // Handle play/pause
+  useEffect(() => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.play().catch((error) => {
+          console.error("Error playing audio:", error)
+          setIsPlaying(false)
+        })
+      } else {
+        audioRef.current.pause()
+      }
+    }
+  }, [isPlaying])
+
+  // Handle volume
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = isMuted ? 0 : volume[0] / 100
+    }
+  }, [volume, isMuted])
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
@@ -56,20 +72,34 @@ export function AudioPlayer({ title, duration }: AudioPlayerProps) {
   }
 
   const handleSeek = (value: number[]) => {
-    setCurrentTime(value[0])
+    if (audioRef.current) {
+      audioRef.current.currentTime = value[0]
+      setCurrentTime(value[0])
+    }
   }
 
   const handleSkipBack = () => {
-    setCurrentTime(Math.max(0, currentTime - 15))
+    if (audioRef.current) {
+      const newTime = Math.max(0, currentTime - 15)
+      audioRef.current.currentTime = newTime
+      setCurrentTime(newTime)
+    }
   }
 
   const handleSkipForward = () => {
-    setCurrentTime(Math.min(totalDuration, currentTime + 15))
+    if (audioRef.current) {
+      const newTime = Math.min(totalDuration, currentTime + 15)
+      audioRef.current.currentTime = newTime
+      setCurrentTime(newTime)
+    }
   }
 
   const handleRestart = () => {
-    setCurrentTime(0)
-    setIsPlaying(true)
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0
+      setCurrentTime(0)
+      setIsPlaying(true)
+    }
   }
 
   return (
@@ -171,3 +201,4 @@ export function AudioPlayer({ title, duration }: AudioPlayerProps) {
     </div>
   )
 }
+

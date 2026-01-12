@@ -1,0 +1,7 @@
+{"location":"route.ts:24","message":"API POST request received","data":{"hasBody":true},"timestamp":1768186591734,"sessionId":"debug-session","runId":"run1","hypothesisId":"A"}
+{"location":"route.ts:28","message":"Request parameters parsed","data":{"sport":"mma/boxing","duration":5,"requestedWordCount":750},"timestamp":1768186591737,"sessionId":"debug-session","runId":"run1","hypothesisId":"A"}
+{"location":"route.ts:36","message":"Calculated character limits","data":{"duration":5,"maxChars":3800,"targetChars":3000,"requestedWordCount":750},"timestamp":1768186591737,"sessionId":"debug-session","runId":"run1","hypothesisId":"A,D"}
+{"location":"route.ts:69","message":"Script generated from GPT","data":{"scriptLength":2944,"scriptWordCount":479,"ttsLimit":4096,"exceedsLimit":false},"timestamp":1768186609496,"sessionId":"debug-session","runId":"run1","hypothesisId":"B,C"}
+{"location":"route.ts:78","message":"Before TTS API call","data":{"scriptLength":2944,"willTruncate":false},"timestamp":1768186609498,"sessionId":"debug-session","runId":"run1","hypothesisId":"C"}
+{"location":"route.ts:82","message":"After truncation check","data":{"originalLength":2944,"truncatedLength":2944,"wasTruncated":false},"timestamp":1768186609499,"sessionId":"debug-session","runId":"run1","hypothesisId":"C"}
+{"location":"route.ts:92","message":"TTS API call successful","data":{"audioBufferSize":3564960},"timestamp":1768186643126,"sessionId":"debug-session","runId":"run1","hypothesisId":"C"}
