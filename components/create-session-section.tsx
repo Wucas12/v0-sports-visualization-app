@@ -6,7 +6,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Slider } from "@/components/ui/slider"
 import { AudioPlayer } from "@/components/audio-player"
 import { Loader2, Sparkles, Volume2 } from "lucide-react"
 
@@ -43,6 +42,12 @@ const sessionTypes = [
   { value: "focus", label: "Focus & Concentration" },
 ]
 
+const durationOptions = [
+  { value: "2", label: "Short (2 min)" },
+  { value: "3", label: "Medium (3 min)" },
+  { value: "5", label: "Long (5 min)" },
+]
+
 export function CreateSessionSection() {
   const [isGenerating, setIsGenerating] = useState(false)
   const [generatedSession, setGeneratedSession] = useState<{
@@ -55,7 +60,7 @@ export function CreateSessionSection() {
     sessionType: "",
     scenario: "",
     voiceStyle: "calm",
-    duration: [10],
+    duration: "3", // Default to medium (3 min)
   })
 
   const handleGenerate = async () => {
@@ -71,7 +76,7 @@ export function CreateSessionSection() {
           sessionType: formData.sessionType,
           scenario: formData.scenario,
           voiceStyle: formData.voiceStyle,
-          duration: formData.duration[0],
+          duration: Number.parseInt(formData.duration),
         }),
       })
 
@@ -98,8 +103,8 @@ export function CreateSessionSection() {
     <section id="create" className="py-20 px-4 sm:px-6 lg:px-8 bg-secondary/30">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">Create Your Session</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <h2 className="text-6xl sm:text-7xl font-bold text-foreground mb-4">Create Your Session</h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Tell us about your sport, scenario, and goals. Our AI will craft a personalized visualization meditation
             just for you.
           </p>
@@ -184,23 +189,23 @@ export function CreateSessionSection() {
                 </Select>
               </div>
 
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <Label>Session Duration</Label>
-                  <span className="text-sm text-muted-foreground">{formData.duration[0]} minutes</span>
-                </div>
-                <Slider
+              <div className="space-y-2">
+                <Label htmlFor="duration">Session Duration</Label>
+                <Select
                   value={formData.duration}
                   onValueChange={(value) => setFormData({ ...formData, duration: value })}
-                  min={5}
-                  max={30}
-                  step={5}
-                  className="w-full"
-                />
-                <div className="flex justify-between text-xs text-muted-foreground">
-                  <span>5 min</span>
-                  <span>30 min</span>
-                </div>
+                >
+                  <SelectTrigger id="duration">
+                    <SelectValue placeholder="Select duration" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {durationOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
 
               <Button
@@ -245,8 +250,8 @@ export function CreateSessionSection() {
                   <div className="w-20 h-20 rounded-full bg-secondary flex items-center justify-center mb-6">
                     <Volume2 className="w-10 h-10 text-muted-foreground" />
                   </div>
-                  <h3 className="text-lg font-medium text-foreground mb-2">No Session Yet</h3>
-                  <p className="text-sm text-muted-foreground max-w-sm">
+                  <h3 className="text-2xl font-medium text-foreground mb-2">No Session Yet</h3>
+                  <p className="text-base text-muted-foreground max-w-sm">
                     Fill out the form and click generate to create your personalized visualization meditation.
                   </p>
                 </div>

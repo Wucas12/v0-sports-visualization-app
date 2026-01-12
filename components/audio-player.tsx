@@ -139,7 +139,7 @@ export function AudioPlayer({ title, duration, audioUrl }: AudioPlayerProps) {
                 />
               ))}
             </div>
-            <span className="text-xs text-foreground font-medium">Playing</span>
+            <span className="text-base text-foreground font-medium">Playing</span>
           </div>
         )}
       </div>
@@ -147,8 +147,8 @@ export function AudioPlayer({ title, duration, audioUrl }: AudioPlayerProps) {
       {/* Title & Actions */}
       <div className="flex items-start justify-between">
         <div>
-          <h3 className="font-semibold text-foreground">{title}</h3>
-          <p className="text-sm text-muted-foreground">{duration} visualization</p>
+          <h3 className="text-xl font-semibold text-foreground">{title}</h3>
+          <p className="text-base text-muted-foreground">{duration} visualization</p>
         </div>
         <div className="flex items-center gap-2">
           <Button
@@ -168,7 +168,7 @@ export function AudioPlayer({ title, duration, audioUrl }: AudioPlayerProps) {
       {/* Progress */}
       <div className="space-y-2">
         <Slider value={[currentTime]} onValueChange={handleSeek} max={totalDuration} step={1} className="w-full" />
-        <div className="flex justify-between text-xs text-muted-foreground">
+        <div className="flex justify-between text-base text-muted-foreground">
           <span>{formatTime(currentTime)}</span>
           <span>{formatTime(totalDuration)}</span>
         </div>

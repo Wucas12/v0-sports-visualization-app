@@ -88,8 +88,8 @@ export function SessionLibrary() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-2">Session Library</h2>
-            <p className="text-muted-foreground">Your personalized collection of visualization sessions</p>
+            <h2 className="text-6xl sm:text-7xl font-bold text-foreground mb-2">Session Library</h2>
+            <p className="text-xl text-muted-foreground">Your personalized collection of visualization sessions</p>
           </div>
 
           <Tabs value={activeTab} onValueChange={setActiveTab}>
@@ -124,14 +124,14 @@ export function SessionLibrary() {
               <CardContent className="p-4">
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <h3 className="font-semibold text-foreground line-clamp-1">{session.title}</h3>
-                    <p className="text-sm text-muted-foreground">{session.sport}</p>
+                    <h3 className="text-lg font-semibold text-foreground line-clamp-1">{session.title}</h3>
+                    <p className="text-base text-muted-foreground">{session.sport}</p>
                   </div>
                   <Button variant="ghost" size="icon" className="shrink-0 -mr-2">
                     <MoreHorizontal className="w-5 h-5" />
                   </Button>
                 </div>
-                <div className="flex items-center gap-4 mt-3 text-sm text-muted-foreground">
+                <div className="flex items-center gap-4 mt-3 text-base text-muted-foreground">
                   <div className="flex items-center gap-1">
                     <Clock className="w-4 h-4" />
                     {session.duration}

@@ -3,7 +3,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Sports Visualization App - Dark Athletic Theme */
+/* Vantage - Williams College Purple and Gold Theme */
 :root {
   --background: oklch(0.08 0 0);
   --foreground: oklch(0.98 0 0);
@@ -11,20 +11,22 @@
   --card-foreground: oklch(0.98 0 0);
   --popover: oklch(0.12 0 0);
   --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.75 0.15 45);
-  --primary-foreground: oklch(0.08 0 0);
+  /* Williams College Purple (#500082) */
+  --primary: #500082;
+  --primary-foreground: #FFBE0A;
   --secondary: oklch(0.18 0 0);
   --secondary-foreground: oklch(0.98 0 0);
   --muted: oklch(0.18 0 0);
   --muted-foreground: oklch(0.6 0 0);
-  --accent: oklch(0.75 0.15 45);
-  --accent-foreground: oklch(0.08 0 0);
+  /* Williams College Gold (#FFBE0A) */
+  --accent: #FFBE0A;
+  --accent-foreground: #500082;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.98 0 0);
   --border: oklch(0.22 0 0);
   --input: oklch(0.16 0 0);
-  --ring: oklch(0.75 0.15 45);
-  --chart-1: oklch(0.75 0.15 45);
+  --ring: #FFBE0A;
+  --chart-1: #FFBE0A;
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
@@ -32,53 +34,57 @@
   --radius: 0.75rem;
   --sidebar: oklch(0.1 0 0);
   --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.75 0.15 45);
-  --sidebar-primary-foreground: oklch(0.08 0 0);
+  --sidebar-primary: #500082;
+  --sidebar-primary-foreground: #FFBE0A;
   --sidebar-accent: oklch(0.18 0 0);
   --sidebar-accent-foreground: oklch(0.98 0 0);
   --sidebar-border: oklch(0.22 0 0);
-  --sidebar-ring: oklch(0.75 0.15 45);
+  --sidebar-ring: #FFBE0A;
 }
 
 .dark {
+  /* Williams College Purple and Gold Theme */
   --background: hsl(0 0% 3.9%);
   --foreground: hsl(0 0% 98%);
   --card: hsl(0 0% 3.9%);
   --card-foreground: oklch(0.98 0 0);
   --popover: hsl(0 0% 3.9%);
   --popover-foreground: oklch(0.98 0 0);
-  --primary: rgb(254, 204, 4);
-  --primary-foreground: oklch(0.08 0 0);
-  --secondary: rgb(41, 0, 80);
-  --secondary-foreground: oklch(0.98 0 0);
+  /* Williams College Purple (#500082) as primary */
+  --primary: #500082;
+  --primary-foreground: #FFBE0A;
+  /* Williams College Gold (#FFBE0A) for secondary/accent */
+  --secondary: #500082;
+  --secondary-foreground: #FFBE0A;
   --muted: hsl(0 0% 14.9%);
   --muted-foreground: oklch(0.6 0 0);
-  --accent: rgb(41, 0, 80);
-  --accent-foreground: oklch(0.08 0 0);
+  --accent: #FFBE0A;
+  --accent-foreground: #500082;
   --destructive: hsl(0 62.8% 30.6%);
   --destructive-foreground: oklch(0.98 0 0);
   --border: hsl(0 0% 14.9%);
   --input: hsl(0 0% 14.9%);
-  --ring: hsl(0 72.2% 50.6%);
-  --chart-1: hsl(0 72.2% 50.6%);
+  --ring: #FFBE0A;
+  --chart-1: #FFBE0A;
   --chart-2: hsl(12 76% 61%);
   --chart-3: hsl(25 83% 53%);
   --chart-4: hsl(349 89% 60%);
   --chart-5: hsl(320 65% 52%);
   --sidebar: hsl(240 5.9% 10%);
   --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.75 0.15 45);
-  --sidebar-primary-foreground: oklch(0.08 0 0);
+  --sidebar-primary: #500082;
+  --sidebar-primary-foreground: #FFBE0A;
   --sidebar-accent: oklch(0.18 0 0);
   --sidebar-accent-foreground: oklch(0.98 0 0);
   --sidebar-border: oklch(0.22 0 0);
-  --sidebar-ring: oklch(0.75 0.15 45);
+  --sidebar-ring: #FFBE0A;
 }
 
 @theme inline {
-  --font-sans: "Inter", "Inter Fallback";
+  --font-sans: var(--font-quincy), "Georgia", serif;
   --font-mono: "Geist Mono", "Geist Mono Fallback";
-  --font-display: "Inter", "Inter Fallback";
+  --font-display: var(--font-quincy), "Georgia", serif;
+  --font-quincy: var(--font-quincy), "Georgia", serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -123,5 +129,11 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-quincy), "Georgia", serif;
+  }
+  
+  /* Apply Quincy font to all text elements */
+  h1, h2, h3, h4, h5, h6, p, span, div, a, button, input, textarea, select, label {
+    font-family: var(--font-quincy), "Georgia", serif;
   }
 }

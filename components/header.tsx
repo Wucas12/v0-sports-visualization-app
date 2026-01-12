@@ -8,27 +8,27 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-accent/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-              <Zap className="w-5 h-5 text-primary-foreground" />
+            <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center">
+              <Zap className="w-5 h-5 text-accent-foreground" />
             </div>
-            <span className="text-xl font-bold tracking-tight text-foreground">MindPlay</span>
+            <span className="text-3xl font-bold tracking-tight text-foreground">Vantage</span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
-            <Link href="#create" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="#create" className="text-lg text-muted-foreground hover:text-foreground transition-colors">
               Create Session
             </Link>
             <Link
               href="#how-it-works"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="text-lg text-muted-foreground hover:text-foreground transition-colors"
             >
               How It Works
             </Link>
-            <Link href="#library" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="#library" className="text-lg text-muted-foreground hover:text-foreground transition-colors">
               Library
             </Link>
           </nav>
@@ -42,13 +42,13 @@ export function Header() {
       {mobileMenuOpen && (
         <div className="md:hidden bg-background border-b border-border">
           <nav className="flex flex-col px-4 py-4 gap-4">
-            <Link href="#create" className="text-sm text-muted-foreground hover:text-foreground">
+            <Link href="#create" className="text-lg text-muted-foreground hover:text-foreground">
               Create Session
             </Link>
-            <Link href="#how-it-works" className="text-sm text-muted-foreground hover:text-foreground">
+            <Link href="#how-it-works" className="text-lg text-muted-foreground hover:text-foreground">
               How It Works
             </Link>
-            <Link href="#library" className="text-sm text-muted-foreground hover:text-foreground">
+            <Link href="#library" className="text-lg text-muted-foreground hover:text-foreground">
               Library
             </Link>
           </nav>
